@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.akshai.tutorials.wisdomleaftest.R
+import com.akshai.tutorials.wisdomleaftest.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
+    private lateinit var binding: FragmentMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +22,12 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    ): View {
+
+        binding = FragmentMainBinding.inflate(layoutInflater,container,false)
+        return binding.root
     }
+
 
     companion object {
         /**
