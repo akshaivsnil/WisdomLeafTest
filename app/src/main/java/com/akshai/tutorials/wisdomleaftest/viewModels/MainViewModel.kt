@@ -43,6 +43,11 @@ class MainViewModel @Inject constructor(
         _liveData.postValue(handleResponse(response.await()))
     }
 
+
+    /**
+     * Response handler ,
+     * It will map the Entity to the Domain model
+     */
     private fun handleResponse(response: Response<List<ListApiResponse>>): DataHandler<List<ListDomainModel>> {
         if (response.isSuccessful) {
             response.body()?.let {

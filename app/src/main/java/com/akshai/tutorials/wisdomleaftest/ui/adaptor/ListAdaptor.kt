@@ -2,12 +2,13 @@ package com.akshai.tutorials.wisdomleaftest.ui.adaptor
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.akshai.tutorials.wisdomleaftest.databinding.ListItemLayoutBinding
 import com.akshai.tutorials.wisdomleaftest.domain.ListDomainModel
+import com.akshai.tutorials.wisdomleaftest.ui.clickEvent.ClickEventListener
 import com.akshai.tutorials.wisdomleaftest.utils.ListDiffCallback
 import javax.inject.Inject
 
@@ -18,15 +19,23 @@ import javax.inject.Inject
 
 class ListAdaptor @Inject constructor() : RecyclerView.Adapter<ListAdaptor.ListViewHolder>() {
 
+    private lateinit var mListener : ClickEventListener<ListDomainModel>
+
     inner class ListViewHolder(val binding: ListItemLayoutBinding)  : ViewHolder(binding.root){
 
         fun setData(listDomainModel: ListDomainModel, position: Int) {
             binding.model = listDomainModel
+            binding.itemView.setOnClickListener { mListener.onItemClicked(listDomainModel) }
         }
 
     }
 
     private var list = arrayListOf<ListDomainModel>()
+
+    fun setClickListener(listener: ClickEventListener<ListDomainModel>) {
+        mListener = listener
+    }
+
 
     fun setAdaptor(newList : ArrayList<ListDomainModel>){
         val diffCallback = ListDiffCallback(list, newList)

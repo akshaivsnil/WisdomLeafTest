@@ -1,6 +1,7 @@
 package com.akshai.tutorials.wisdomleaftest.domain
 
-import com.google.gson.annotations.SerializedName
+import android.graphics.Color
+import java.util.*
 
 
 /**
@@ -13,5 +14,6 @@ data class ListDomainModel(
     val downloadUrl: String? = null,
     val id: String? = null,
     val url: String? = null,
-    val height: Int? = null
+    val height: Int? = null,
+    var color : Int = Color.argb(100,  Random().nextInt(256),  Random().nextInt(256),  Random().nextInt(256))
 )
