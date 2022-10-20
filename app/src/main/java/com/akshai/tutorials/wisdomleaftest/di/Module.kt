@@ -2,6 +2,8 @@ package com.akshai.tutorials.wisdomleaftest.di
 
 import android.content.Context
 import com.akshai.tutorials.wisdomleaftest.App
+import com.akshai.tutorials.wisdomleaftest.network.ApiHelper
+import com.akshai.tutorials.wisdomleaftest.network.ApiHelperImpl
 import com.akshai.tutorials.wisdomleaftest.network.ApiServices
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -12,6 +14,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
+import dagger.Module
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,7 +26,7 @@ import javax.inject.Singleton
  * Created by ATM on 20/October/2022
  */
 
-@dagger.Module
+@Module
 @InstallIn(SingletonComponent::class)
 object Module {
 
@@ -67,7 +70,7 @@ object Module {
         gson: Gson
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("BASE_URL")
+            .baseUrl("https://picsum.photos/v2/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
@@ -78,6 +81,11 @@ object Module {
     fun provideApiService(retrofit: Retrofit): ApiServices {
         return retrofit.create(ApiServices::class.java)
     }
+
+
+    @Provides
+    @Singleton
+    fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
 
     @Provides
     @Singleton

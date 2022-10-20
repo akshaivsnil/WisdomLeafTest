@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.akshai.tutorials.wisdomleaftest.ui.MainFragment"
+        android:name="com.akshai.tutorials.wisdomleaftest.ui.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
 </navigation>
