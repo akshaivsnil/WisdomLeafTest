@@ -25,18 +25,19 @@ class MainViewModel @Inject constructor(
     val mainRepo: MainRepo,
 ) : ViewModel() {
 
-    private val _liveData = MutableLiveData<DataHandler<List<ListDomainModel>>>()
+    private val _liveData =
+        MutableLiveData<DataHandler<List<ListDomainModel>>>()
     val responseLiveData: LiveData<DataHandler<List<ListDomainModel>>> = _liveData
 
-    var response : List<ListDomainModel>? = null
+    var response: List<ListDomainModel>? = null
 
     init {
         getListFromRepo()
     }
 
 
-    private fun getListFromRepo() = viewModelScope.launch {
-        _liveData.postValue(DataHandler.LOADING())
+    fun getListFromRepo() = viewModelScope.launch {
+//        _liveData.postValue(DataHandler.LOADING())
         val response = async {
             mainRepo.getListFromApiHelper()
         }
@@ -51,12 +52,13 @@ class MainViewModel @Inject constructor(
     private fun handleResponse(response: Response<List<ListApiResponse>>): DataHandler<List<ListDomainModel>> {
         if (response.isSuccessful) {
             response.body()?.let {
-                val listData : List<ListApiResponse>  = it
+                val listData: List<ListApiResponse> = it
                 val mapper = ListModelMapper()
                 return DataHandler.SUCCESS(
                     mapper.fromEntityList(
-                    listData
-                ))
+                        listData
+                    )
+                )
             }
         }
         return DataHandler.ERROR(message = "Data not Found")
