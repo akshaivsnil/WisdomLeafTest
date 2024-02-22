@@ -37,7 +37,7 @@ class MainViewModel @Inject constructor(
 
 
     fun getListFromRepo() = viewModelScope.launch {
-//        _liveData.postValue(DataHandler.LOADING())
+        _liveData.postValue(DataHandler.LOADING)
         val response = async {
             mainRepo.getListFromApiHelper()
         }
