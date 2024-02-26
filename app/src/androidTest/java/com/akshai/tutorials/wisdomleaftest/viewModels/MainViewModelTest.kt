@@ -2,6 +2,7 @@ package com.akshai.tutorials.wisdomleaftest.viewModels
 
 import com.akshai.tutorials.wisdomleaftest.MainDispatcherRule
 import com.akshai.tutorials.wisdomleaftest.getOrAwaitValueTest
+import com.akshai.tutorials.wisdomleaftest.repository.DataHandler
 import com.akshai.tutorials.wisdomleaftest.repository.MainRepo
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -53,6 +54,10 @@ class MainViewModelTest {
         viewModel.getListFromRepo()
         advanceUntilIdle()
         val result = viewModel.responseLiveData.getOrAwaitValueTest()
-        assertEquals(result, "")
+        assertEquals(DataHandler.LOADING, result)
+        mainRepo.getListFromApiHelper()
+        val result1 = viewModel.responseLiveData.value
+        assertEquals(DataHandler.LOADING, result1)
+
     }
 }
